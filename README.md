@@ -9,13 +9,8 @@ import pyelo
 adam = pyelo.createPlayer("Adam")
 bob = pyelo.createPlayer("Bob")
 
-pyelo.addGameResults(adam, # playerA
-                     1,    # playerAScore (1 = win in chess)
-                     bob,  # playerB
-                     0,    # playerBScore (0 = loss in chess)
-                    )
+pyelo.addGameResults(adam,1,bob,0)
 
-# Here are the results!
 print("After Game 1, where Adam won, the Elo scores are now:")
 print(pyelo.rankPlayers())
 print("Thus, the odds of Adam beating Bob in another game are now:")
