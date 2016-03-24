@@ -18,8 +18,8 @@ pyelo.addGameResults(adam, # playerA
                      1,    # playerAScore (1 = win in chess)
                      bob,  # playerB
                      0,    # playerBScore (0 = loss in chess)
-                     0,    # homeAdvA (optional)
-                     0,    # homeAdvB (optional)
+                     0,    # homeAdvA (optional: 1 = home, -1 = away, 0 = neutral)
+                     0,    # homeAdvB (optional, same flags as above)
                      0)    # mov (margin of victory, optional)
 
 # Here are the results!
