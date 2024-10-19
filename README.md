@@ -5,16 +5,26 @@ PyElo is a simple Python library for creating Elo ranking systems within your pr
 ## Example
 
 ```python
+"""
+PyElo Library Example
+
+This example demonstrates how to use the PyElo library to set up an Elo rating system,
+create players, record game results, and rank players.
+
+Author: Tony Cardillo
+"""
+
 from pyelo import (
     set_mean, set_K, set_RPA, set_home_adv_amount,
-    create_player, add_game_results, rank_players, get_player_odds
+    create_player, add_game_results, rank_players, get_player_odds,
+    WIN, LOSS, DRAW, HOME_ADVANTAGE, NO_HOME_ADVANTAGE, AWAY_ADVANTAGE
 )
 
 # Step 1: Set up the Elo system
-set_mean(1000)        # Set the average Elo rating
-set_K(30)             # Set the K-factor for rating adjustments
-set_RPA(400)          # Set the RPA (difference leading to 10x expected win ratio)
-set_home_adv_amount(50)  # Set the home advantage amount
+set_mean(1000)                    # Set the starting Elo of all players
+set_K(30)                         # Set the K-factor for rating adjustments
+set_RPA(400)                      # Set the RPA (Rating Point Adjustment) value
+set_home_adv_amount(50)           # Set the home advantage amount (additional points for the home team)
 
 # Step 2: Create players
 alice = create_player("Alice")
@@ -23,19 +33,13 @@ charlie = create_player("Charlie")
 
 # Step 3: Record game results
 # Alice plays Bob, Alice wins with a home advantage
-add_game_results(alice, 1, 
-                 bob, 0, 
-                 homeAdvA=1)
+add_game_results(alice, WIN, bob, LOSS, home_advantage=HOME_ADVANTAGE)
 
 # Alice plays Charlie in a neutral game, and it's a draw
-add_game_results(alice, 0.5, 
-                 charlie, 0.5, 
-                 homeAdvA=0)
+add_game_results(alice, DRAW, charlie, DRAW, home_advantage=NO_HOME_ADVANTAGE)
 
 # Bob plays Charlie, Charlie wins with an away disadvantage
-add_game_results(charlie, 1, 
-                 bob, 0, 
-                 homeAdvB=-1)
+add_game_results(charlie, WIN, bob, LOSS, home_advantage=AWAY_ADVANTAGE)
 
 # Step 4: Calculate the odds of Alice beating Bob
 alice_vs_bob_odds = get_player_odds(alice, bob)
@@ -48,9 +52,9 @@ for player in ranked_players:
     print(player)
 
 # Output:
-# Odds of Alice beating Bob: 63.21%
+# Odds of Alice beating Bob: 56.53%
 # Player Rankings:
-# Name: Alice (Elo: 1030)
-# Name: Charlie (Elo: 1015)
-# Name: Bob (Elo: 970)
+# Name: Alice (Elo: 1016.4)
+# Name: Charlie (Elo: 1012.8)
+# Name: Bob (Elo: 970.8)
 ```
